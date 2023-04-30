@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const UserSchema = new Schema(
   {
+    // Define the username field
     username: {
       type: String,
       unique: true,
@@ -9,6 +10,7 @@ const UserSchema = new Schema(
       required: "Username is Required",
     },
 
+    // Define the email field
     email: {
       type: String,
       unique: true,
@@ -16,6 +18,7 @@ const UserSchema = new Schema(
       match: [/.+@.+\..+/],
     },
 
+    // Define the thoughts field as an array of ObjectIds referencing the Thought model
     thoughts: [
       {
         type: Schema.Types.ObjectId,
@@ -23,6 +26,7 @@ const UserSchema = new Schema(
       },
     ],
 
+    // Define the friends field as an array of ObjectIds referencing the User model
     friends: [
       {
         type: Schema.Types.ObjectId,
@@ -38,6 +42,7 @@ const UserSchema = new Schema(
   }
 );
 
+// Define a virtual property on the User schema to compute the number of friends
 UserSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });
